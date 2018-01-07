@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MVC Library</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .libraryCart {
+            background: url(../Images/shopingCart.png) no-repeat;
+            background-size: 48px 48px;
+            width: 48px;
+            height: 48px;
+            display: block;
+            text-indent: -9999px;
+        }
+    </style>
+</head>
+<body ng-app="mvcLibrary">
+
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>@Html.ActionLink("Biblioteka", "Index", "Home")</h3>
+            </div>
+            <ul class="list-unstyled components">
+
+                @*@* KSIAZKI *@
+                <li class="active">
+                    <a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false">Ksiazki</a>
+                    <ul class="collapse list-unstyled" id="bookSubmenu">
+                        <li><a href="#">Wyszukaj</a></li>
+                        <li>@Html.ActionLink("Ksiazki", "Index", "Books")</li>
+                        @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker")))
+                        {
+                            <li>@Html.ActionLink("Dodaj nowa", "Create", "Books")</li>
+                        }
+                    </ul>
+                </li>
+
+                @* KATEGORIE *@
+
+                <li>
+                    <a href="#categorySubmenu" data-toggle="collapse" aria-expanded="false">Kategorie</a>
+                    <ul class="collapse list-unstyled" id="categorySubmenu">
+                        <li>@Html.ActionLink("Spis Kategorii", "Index", "Category")</li>
+                        @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker")))
+                        {
+                            <li>@Html.ActionLink("Dodaj nową", "Create", "Category")</li>
+                        }
+                        <li><a href="#">Page 3</a></li>
+                    </ul>
+                </li>
+
+                @* CZYTELNICY *@
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker")))
+                {
+                    <li>
+                        <a href="#clientsSubmenu" data-toggle="collapse" aria-expanded="false">Czytelnicy</a>
+                        <ul class="collapse list-unstyled" id="clientsSubmenu">
+                            <li> @Html.ActionLink("Spis klientów", "Index", "User")</li>
+                            <li> @Html.ActionLink("Niezweryfikowani klienci", "UsersToVerify", "User")</li>
+                            <li>@Html.ActionLink("Wypożyczenia", "Index", "Lend")</li>
+                            <li><a href="#">Wyszukaj</a></li>
+                        </ul>
+                    </li>
+                }
+                @*Wypożyczenia*@
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker")))
+                {
+                    <li>
+                        <a href="#lendsSubmenu" data-toggle="collapse" aria-expanded="false">Wypożeczenia</a>
+                        <ul class="collapse list-unstyled" id="lendsSubmenu">
+                            <li> @Html.ActionLink("Wszystkie wypożyczenia", "Index", "Lend")</li>
+                            <li> @Html.ActionLink("Do odebrania", "WaitingBooks", "Lend")</li>
+                            <li> @Html.ActionLink("Odebrane", "Lend", "Lend")</li>
+                        </ul>
+                    </li>
+                }
+                @*Pracownicy*@
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker")))
+                {
+                    <li>
+                        <a href="#workesSubmenu" data-toggle="collapse" aria-expanded="false">Pracownicy</a>
+                        <ul class="collapse list-unstyled" id="workesSubmenu">
+                            <li> @Html.ActionLink("Spis pracowników", "Workers", "User")</li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content" class="container col-lg-12">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+
+                    <div class="navbar-header">
+                        <button type="button" id="sidebarCollapse" class="navbar-btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                    <!-- Zmiana jezyka-->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            @if (Request.Cookies["Language"] != null)
+                            {
+                                if (Request.Cookies["Language"].Value == "pl")
+                                {
+                                    <li>@Html.ActionLink("Angielski", "Change", "Language", new { Language = "en" }, null)</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Polish", "Change", "Language", new { Language = "pl" }, null)</li>
+                                }
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Polish", "Change", "Language", new { Language = "pl" }, null)</li>
+                            }
+                        </ul>
+                        <!-- Login PartialView-->
+                        @Html.Partial("_LoginPartial")
+                        <!-- Jakies podstrony-->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">Page</a></li>
+                            <li><a href="#">Page</a></li>
+                            <li><a href="#">Page</a></li>
+                            <!-- Wozek do wypozyczenia -->
+                            @if (Request.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("Cart", "Index", "Books", null, new { @class = "libraryCart" })</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
+
+                <footer>
+                    <p>&copy; @DateTime.Now.Year - MVC Library</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+</body>
+</html>

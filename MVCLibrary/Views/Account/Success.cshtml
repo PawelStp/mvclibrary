@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Success";
+}
+
+@if (ViewBag.Status != null && !ViewBag.Status)
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong> @ViewBag.Message
+    </div>
+}

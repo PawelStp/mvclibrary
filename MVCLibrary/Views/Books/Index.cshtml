@@ -1,0 +1,113 @@
+﻿@model MVCLibrary.ViewModels.CartBookViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (TempData["Status"] != null)
+{
+    if (TempData["Status"].ToString() == "false" && TempData["Message"] != null)
+    {
+        <div class="alert alert-danger">
+            <strong>Error!</strong>  @TempData["Message"].ToString()
+        </div>
+    }
+    if (TempData["Status"].ToString() == "true" && TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            <strong>Error!</strong> @TempData["Message"].ToString()
+        </div>
+    }
+}
+
+<div class="table-responsive">
+    @if (Model.cart != null)
+    {
+        if (Model.cart.books.Count != 0)
+        {
+            <table class="table">
+                @foreach (var item in Model.cart.books)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ISBN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Usuń", "RemoveBook", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+
+                }
+            </table>
+            @Html.ActionLink("Wypożycz ksiązki", "LendBooks", null, new { @class = "btn btn-success" })
+            @Html.ActionLink("Wyczyść koszyk", "ClearCart", null, new { @class = "btn btn-danger" })
+        }
+    }
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Author
+                </th>
+                <th>
+                    ISBN
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Status
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BookViewModels)
+            {
+                <tr class="form-group">
+                    @using (Html.BeginForm("Edit", "Books", FormMethod.Post))
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ISBN, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NameCategory, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.status, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @if (Request.IsAuthenticated)
+                            {
+                                @Html.ActionLink("Dodaj do koszyka", "AddBookToCart",  new { id = item.Id }, new { @class = "btn btn-success" })
+                                if (User.IsInRole("Admin") || User.IsInRole("Worker"))
+                                {
+                                    @Html.ActionLink("Edytuj", "Edit", null, new { @class = "btn btn-danger" } /* id=item.PrimaryKey */ );
+                                    @Html.ActionLink("Usuń", "Delete", null, new { @class = "btn btn-danger" } /* id=item.PrimaryKey */ );
+                                }
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
