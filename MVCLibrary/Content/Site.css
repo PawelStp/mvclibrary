@@ -22,3 +22,18 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.table-responsive .btn {
+    margin-right: 8px;
+}
+
+.action-link {
+    background: #eee;
+    padding: 8px;
+    border-radius: 2px;
+    color: #000;
+    transition: background 1s;
+}
+.action-link:hover {
+    background: #888;
+}

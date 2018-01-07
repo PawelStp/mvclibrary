@@ -100,7 +100,7 @@
                                 @Html.ActionLink("Dodaj do koszyka", "AddBookToCart",  new { id = item.Id }, new { @class = "btn btn-success" })
                                 if (User.IsInRole("Admin") || User.IsInRole("Worker"))
                                 {
-                                    @Html.ActionLink("Edytuj", "Edit", null, new { @class = "btn btn-danger" } /* id=item.PrimaryKey */ );
+                                    @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" } /* id=item.PrimaryKey */ );
                                     @Html.ActionLink("Usuń", "Delete", null, new { @class = "btn btn-danger" } /* id=item.PrimaryKey */ );
                                 }
                             }
