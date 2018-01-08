@@ -74,12 +74,11 @@
             <td>
                 @if (item.State == "Na półce czytelnika")
                 {
-                    @Html.ActionLink("Odbierz", "Borrow", new { id = item.Id })
+                    @Html.ActionLink("Odbierz", "Borrow", new { id = item.Id }, new { @class = "btn btn-success" })
                 }
                 @if (item.State == "Odebrano")
                 {
-                    @Html.ActionLink("Zwróc", "Return", new { id = item.Id })
-
+                    @Html.ActionLink("Zwróc", "Return", new { id = item.Id }, new { @class = "btn btn-success" })
                 }
             </td>
         </tr>
