@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MVCLibrary.Models;
+using MVCLibrary.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +12,30 @@ namespace MVCLibrary.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var homeViewModel = new HomeViewModel();
+            using (var dbContext = new MvclibraryEntities())
+            {
+                var books = dbContext.Books.OrderByDescending(b => b.DateCreatead).Take(5).ToList();
+                var bookViewModel = new List<BookViewModel>();
+                foreach (var item in books)
+                {
+                    bookViewModel.Add(new BookViewModel
+                    {
+                        Author = item.Author,
+                        ISBN = item.ISBN,
+                        status = item.Status,
+                        NameCategory = dbContext.category.Where(c => c.Id == item.CategoryId).FirstOrDefault().Name,
+                        Title = item.Title,
+                        Id = item.Id
+                    });
+                }
+
+                var messages = dbContext.message.OrderByDescending(b => b.DateCreated).Take(3).ToList();
+                homeViewModel.messages = messages;
+                homeViewModel.bookViewModel = bookViewModel;
+
+            }
+            return View(homeViewModel);
         }
 
         public ActionResult About()

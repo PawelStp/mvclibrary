@@ -29,5 +29,6 @@ namespace MVCLibrary.Models
         public virtual DbSet<category> category { get; set; }
         public virtual DbSet<Lend> Lend { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<message> message { get; set; }
     }
 }

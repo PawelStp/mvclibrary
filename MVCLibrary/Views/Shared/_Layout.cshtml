@@ -89,6 +89,12 @@
                         </ul>
                     </li>
                 }
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker")))
+                {
+                    <li>
+                        @Html.ActionLink("Wiadomośc", "Create", "message")
+                    </li>
+                }
             </ul>
         </nav>
 

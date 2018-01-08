@@ -29,7 +29,7 @@ namespace MVCLibrary.Controllers
                         Author = item.Author,
                         ISBN = item.ISBN,
                         status = item.Status,
-                        NameCategory = dbContext.category.Where(c => c.Id == item.Id).FirstOrDefault().Name,
+                        NameCategory = dbContext.category.Where(c => c.Id == item.CategoryId).FirstOrDefault().Name,
                         Title = item.Title,
                         Id = item.Id
                     });
@@ -93,7 +93,8 @@ namespace MVCLibrary.Controllers
                             Status = "Dostepna",
                             Title = newBook.Title,
                             ISBN = newBook.ISBN,
-                            CategoryId = int.Parse(newBook.SelectedCategoryId)
+                            CategoryId = int.Parse(newBook.SelectedCategoryId),
+                            DateCreatead = DateTime.Now
                         };
                         dbContext.Entry(book).State = EntityState.Added;
                         dbContext.SaveChanges();
@@ -323,6 +324,37 @@ namespace MVCLibrary.Controllers
             return Redirect(url);
 
         }
+
+        public ActionResult Search(Cart cart, string value)
+        {
+            var cartViewModel = new CartBookViewModel();
+            using (var dbContext = new MvclibraryEntities())
+            {
+                List<Books> books = null;
+                if(value!=null)books =  dbContext.Books.Where(b => b.ISBN.Contains(value) || b.Title.Contains(value) || b.Author.Contains(value)).ToList();
+                else
+                {
+                    books = dbContext.Books.ToList();
+                }
+
+                var bookvm = new List<BookViewModel>();
+                foreach (var item in books)
+                {
+                    cartViewModel.BookViewModels.Add(new BookViewModel
+                    {
+                        Author = item.Author,
+                        ISBN = item.ISBN,
+                        status = item.Status,
+                        NameCategory = dbContext.category.Where(c => c.Id == item.Id).FirstOrDefault().Name,
+                        Title = item.Title,
+                        Id = item.Id
+                    });
+                }
+                cartViewModel.cart = cart;
+                return View("Index", cartViewModel);
+            }
+        }
+
         // GET: Books/Delete/5
         public ActionResult Delete(int id)
         {
@@ -344,5 +376,6 @@ namespace MVCLibrary.Controllers
                 return View();
             }
         }
+
     }
 }

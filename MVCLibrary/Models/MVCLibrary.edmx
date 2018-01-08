@@ -15,6 +15,7 @@
           <Property Name="ISBN" Type="nvarchar" MaxLength="30" />
           <Property Name="CategoryId" Type="int" />
           <Property Name="Status" Type="nvarchar" MaxLength="30" />
+          <Property Name="DateCreatead" Type="datetime" />
         </EntityType>
         <EntityType Name="category">
           <Key>
@@ -35,6 +36,15 @@
           <Property Name="DateBorrowed" Type="date" />
           <Property Name="DateReturn" Type="date" />
           <Property Name="State" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="Contnet" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="datetime" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -102,6 +112,7 @@
           <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lend" EntityType="Self.Lend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="message" EntityType="Self.message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk" Association="Self.fk">
             <End Role="category" EntitySet="category" />
@@ -145,6 +156,7 @@
             <End Role="User" EntitySet="User" />
             <End Role="Lend" EntitySet="Lend" />
           </AssociationSet>
+          <EntitySet Name="message" EntityType="MvclibraryModel.message" />
         </EntityContainer>
         <EntityType Name="Books">
           <Key>
@@ -158,6 +170,7 @@
           <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="category" Relationship="MvclibraryModel.fk" FromRole="Books" ToRole="category" />
           <NavigationProperty Name="Lend" Relationship="MvclibraryModel.fkfk123" FromRole="Books" ToRole="Lend" />
+          <Property Name="DateCreatead" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="category">
           <Key>
@@ -247,6 +260,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Contnet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -256,6 +278,7 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="MvclibraryModel.Books">
               <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="DateCreatead" ColumnName="DateCreatead" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
@@ -298,6 +321,16 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="message">
+            <EntityTypeMapping TypeName="MvclibraryModel.message">
+              <MappingFragment StoreEntitySet="message">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Contnet" ColumnName="Contnet" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

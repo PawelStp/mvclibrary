@@ -26,10 +26,10 @@ namespace MVCLibrary.Controllers
                         rootName = categories.Where(c => c.Id == item.RootCategoryId).FirstOrDefault().Name;
                     categoriesvm.Add(new CategoryViewModel
                     {
-                        
+
                         Name = item.Name,
                         RootName = rootName,
-                        Id=item.Id
+                        Id = item.Id
                     });
                 }
                 return View(categoriesvm);
@@ -46,7 +46,7 @@ namespace MVCLibrary.Controllers
         [Authorize(Roles = "Admin, Worker")]
         public ActionResult Create()
         {
-         
+
             using (var dbContext = new MvclibraryEntities())
             {
                 var s = dbContext.category.ToList();
@@ -86,7 +86,7 @@ namespace MVCLibrary.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View();
             }
@@ -102,9 +102,9 @@ namespace MVCLibrary.Controllers
 
                 var zvm = new CategoryAddViewModel
                 {
-                    Id=editCategory.Id,
+                    Id = editCategory.Id,
                     Name = editCategory.Name,
-                    SelectedCategoryId=editCategory.RootCategoryId.ToString()
+                    SelectedCategoryId = editCategory.RootCategoryId.ToString()
                 };
 
                 zvm.CategoryList = s.Select(x => new SelectListItem
@@ -130,23 +130,52 @@ namespace MVCLibrary.Controllers
                     var editCategory = dbContext.category.Where(b => b.Id == c.Id).FirstOrDefault();
 
                     editCategory.Name = c.Name;
-                    editCategory.RootCategoryId = c.Id;
-                    dbContext.Entry(c).State = EntityState.Modified;
+                    int? rootId = null;
+                    if (c.SelectedCategoryId != null)
+                        rootId = int.Parse(c.SelectedCategoryId);
+                    editCategory.RootCategoryId = rootId;
+                    dbContext.Entry(editCategory).State = EntityState.Modified;
                     dbContext.SaveChanges();
 
                 }
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                using (var dbContext = new MvclibraryEntities())
+                {
+                    var s = dbContext.category.ToList();
+                    var editCategory = dbContext.category.Where(ce => ce.Id == c.Id).FirstOrDefault();
+
+                    var zvm = new CategoryAddViewModel
+                    {
+                        Id = editCategory.Id,
+                        Name = editCategory.Name,
+                        SelectedCategoryId = editCategory.RootCategoryId.ToString()
+                    };
+
+                    zvm.CategoryList = s.Select(x => new SelectListItem
+                    {
+                        Value = x.Id.ToString(),
+                        Text = x.Name
+
+                    });
+
+                    return View(zvm);
+                }
             }
         }
 
         // GET: Category/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            using (var dbContext = new MvclibraryEntities())
+            {
+                var s = dbContext.category.ToList();
+              
+
+                    return RedirectToAction("Index");
+            }
         }
 
         // POST: Category/Delete/5

@@ -25,7 +25,7 @@ namespace MVCLibrary.Services
                         Author = item.Author,
                         ISBN = item.ISBN,
                         status = item.Status,
-                        NameCategory = dbContext.category.Where(c => c.Id == item.Id).FirstOrDefault().Name,
+                        NameCategory = dbContext.category.Where(c => c.Id == item.CategoryId).FirstOrDefault().Name,
                         Title = item.Title,
                         Id = item.Id
                     });

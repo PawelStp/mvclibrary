@@ -13,6 +13,7 @@
         <AssociationConnector Association="MvclibraryModel.fkfk123" />
         <AssociationConnector Association="MvclibraryModel.sfsfs" />
         <AssociationConnector Association="MvclibraryModel.fkfk1223" />
+        <EntityTypeShape EntityType="MvclibraryModel.message" Width="1.5" PointX="5.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -26,6 +26,7 @@ namespace MVCLibrary.Models
         public string ISBN { get; set; }
         public Nullable<int> CategoryId { get; set; }
         public string Status { get; set; }
+        public Nullable<System.DateTime> DateCreatead { get; set; }
     
         public virtual category category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
