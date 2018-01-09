@@ -34,6 +34,11 @@ textarea {
     color: #000;
     transition: background 1s;
 }
-.action-link:hover {
-    background: #888;
+
+    .action-link:hover {
+        background: #888;
+    }
+
+.bg-white {
+    background-color: #fff !important;
 }

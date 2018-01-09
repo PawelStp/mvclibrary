@@ -133,13 +133,18 @@
                         @Html.Partial("_LoginPartial")
                         <!-- Jakies podstrony-->
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Page</a></li>
-                            <li><a href="#">Page</a></li>
-                            <li><a href="#">Page</a></li>
+                            <li><a href="@Url.Action("Index", "Books")">Books</a></li>
+                            <li><a href="@Url.Action("Index", "Category")">Category</a></li>
+                            @*<li><a href="#">Page</a></li>*@
                             <!-- Wozek do wypozyczenia -->
                             @if (Request.IsAuthenticated)
                             {
-                                <li>@Html.ActionLink("Cart", "Index", "Books", null, new { @class = "libraryCart" })</li>
+                                <li>
+                                    @*@Html.ActionLink("Cart", "Index", "Books", null, new { @class = "libraryCart" })*@
+                                    <a href="@Url.Action("Index", "Books")">
+                                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart
+                                    </a>
+                                </li>
                             }
                         </ul>
                     </div>
