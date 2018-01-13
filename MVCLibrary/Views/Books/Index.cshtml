@@ -1,8 +1,10 @@
 ﻿@model MVCLibrary.ViewModels.CartBookViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Books";
 }
+
+<h2>Books</h2>
 
 @if (TempData["Status"] != null)
 {
@@ -134,8 +136,8 @@
                             <td>
                                 @if (Request.IsAuthenticated)
                                 {
-                                    <a href="@Url.Action("AddBookToCart", "Books", new { id = item.Id })" class="btn btn-success">
-                                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Dodaj do koszyka
+                                    <a href="@Url.Action("AddBookToCart", "Books", new { id = item.Id })" class="btn btn-success @(item.status == "Wypożyczona" ? "disabled" : "")">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Dodaj do koszyka
                                     </a>
 
                                     if (User.IsInRole("Admin") || User.IsInRole("Worker"))

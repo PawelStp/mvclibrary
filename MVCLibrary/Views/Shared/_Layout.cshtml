@@ -92,7 +92,7 @@
                 @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker")))
                 {
                     <li>
-                        @Html.ActionLink("Wiadomośc", "Create", "message")
+                        @Html.ActionLink("Wiadomość", "Create", "message")
                     </li>
                 }
             </ul>

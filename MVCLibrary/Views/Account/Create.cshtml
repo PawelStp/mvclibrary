@@ -1,10 +1,11 @@
 ﻿@model MVCLibrary.ViewModels.RegisterViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Register";
 }
 
-<h2>Create</h2>
+<h2>Register</h2>
+
 @if (ViewBag.Status != null && !ViewBag.Status)
 {
     <div class="alert alert-danger">
@@ -17,7 +18,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>RegisterViewModel</h4>
+        <h4>Create new account</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -62,7 +63,7 @@
 }
 
 <div>
-    @Html.ActionLink("< Back to List", "Index", null, new { @class = "action-link" })
+    @Html.ActionLink("< Back to Home", "Index", "Home", null, new { @class = "action-link" })
 </div>
 
 @section Scripts {
