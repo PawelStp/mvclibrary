@@ -328,10 +328,11 @@ namespace MVCLibrary.Controllers
         public ActionResult Search(Cart cart, string value)
         {
             var cartViewModel = new CartBookViewModel();
+            cartViewModel.SerchWord = value;
             using (var dbContext = new MvclibraryEntities())
             {
                 List<Books> books = null;
-                if(value!=null)books =  dbContext.Books.Where(b => b.ISBN.Contains(value) || b.Title.Contains(value) || b.Author.Contains(value)).ToList();
+                if (value != null) books = dbContext.Books.Where(b => b.ISBN.Contains(value) || b.Title.Contains(value) || b.Author.Contains(value)).ToList();
                 else
                 {
                     books = dbContext.Books.ToList();
@@ -345,7 +346,7 @@ namespace MVCLibrary.Controllers
                         Author = item.Author,
                         ISBN = item.ISBN,
                         status = item.Status,
-                        NameCategory = dbContext.category.Where(c => c.Id == item.Id).FirstOrDefault().Name,
+                        NameCategory = dbContext.category.Where(c => c.Id == item.CategoryId).FirstOrDefault().Name,
                         Title = item.Title,
                         Id = item.Id
                     });
@@ -370,6 +371,56 @@ namespace MVCLibrary.Controllers
                 // TODO: Add delete logic here
 
                 return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult History(Cart cart, string value)
+        {
+            try
+            {
+                var cartViewModel = new CartBookViewModel();
+                cartViewModel.SerchWord = value;
+                using (var dbContext = new MvclibraryEntities())
+                {
+                    var userEmail = User.Identity.Name;
+                    var user = dbContext.User.Where(u => u.Email == userEmail).FirstOrDefault();
+
+                    var history = new History
+                    {
+                        Word = value,
+                        UserID = user.Id
+                    };
+                    dbContext.Entry(history).State = EntityState.Added;
+                    TempData["Message"] = "Zostało zapisane do bazy";
+                    TempData["Status"] = "true";
+                    List<Books> books = null;
+                    if (value != null) books = dbContext.Books.Where(b => b.ISBN.Contains(value) || b.Title.Contains(value) || b.Author.Contains(value)).ToList();
+                    else
+                    {
+                        books = dbContext.Books.ToList();
+                    }
+
+                    var bookvm = new List<BookViewModel>();
+                    foreach (var item in books)
+                    {
+                        cartViewModel.BookViewModels.Add(new BookViewModel
+                        {
+                            Author = item.Author,
+                            ISBN = item.ISBN,
+                            status = item.Status,
+                            NameCategory = dbContext.category.Where(c => c.Id == item.CategoryId).FirstOrDefault().Name,
+                            Title = item.Title,
+                            Id = item.Id
+                        });
+                    }
+                    dbContext.SaveChanges();
+                    cartViewModel.cart = cart;
+                    return View("Index", cartViewModel);
+                }
             }
             catch
             {

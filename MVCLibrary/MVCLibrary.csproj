@@ -154,6 +154,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LendController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
@@ -166,6 +167,9 @@
       <DependentUpon>MVCLibrary.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\category.cs">
+      <DependentUpon>MVCLibrary.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\History.cs">
       <DependentUpon>MVCLibrary.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Lend.cs">
@@ -283,6 +287,9 @@
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Lend\Index.cshtml" />
     <Content Include="Views\Message\Create.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\Lend\UserLEnd.cshtml" />
+    <Content Include="Views\History\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

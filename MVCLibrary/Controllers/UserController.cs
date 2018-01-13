@@ -113,7 +113,11 @@ namespace MVCLibrary.Controllers
 
             }
         }
-
+        [Authorize]
+        public ActionResult Profile()
+        {
+            return View();
+        }
         // POST: User/Edit/5
         [HttpPost]
         public ActionResult Edit(EditUserViewModel collection)

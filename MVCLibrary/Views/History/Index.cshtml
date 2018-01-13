@@ -44,13 +44,13 @@
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
                         <td>
-                            @Html.ActionLink("Usuń", "RemoveBook","Books", new { id = item.Id }, new { @class = "btn btn-danger" })
+                            @Html.ActionLink("Usuń", "RemoveBook", "Books", new { id = item.Id }, new { @class = "btn btn-danger" })
                         </td>
                     </tr>
 
                 }
             </table>
-            @Html.ActionLink("Wypożycz ksiązki", "LendBooks","Books", null, new { @class = "btn btn-success" })
+            @Html.ActionLink("Wypożycz ksiązki", "LendBooks", "Books", null, new { @class = "btn btn-success" })
             @Html.ActionLink("Wyczyść koszyk", "ClearCart", "Books", null, new { @class = "btn btn-danger" })
         }
     }
@@ -109,11 +109,6 @@
                         <td>
                             @if (Request.IsAuthenticated)
                             {
-                                if (User.IsInRole("Admin") || User.IsInRole("Worker"))
-                                {
-                                    @Html.ActionLink("Edytuj", "Edit", "Books", null, new { @class = "btn btn-danger" } /* id=item.PrimaryKey */ );
-                                    @Html.ActionLink("Usuń", "Delete", "Books", null, new { @class = "btn btn-danger" } /* id=item.PrimaryKey */ );
-                                }
                                 if (item.status == "Dostepna")
                                 {
                                     @Html.ActionLink("Dodaj do koszyka", "AddBookToCart", "Books", new { id = item.Id }, new { @class = "btn btn-success" })

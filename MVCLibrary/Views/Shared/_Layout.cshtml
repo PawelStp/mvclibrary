@@ -31,7 +31,6 @@
                 <li class="active">
                     <a href="#bookSubmenu" data-toggle="collapse" aria-expanded="false">Ksiazki</a>
                     <ul class="collapse list-unstyled" id="bookSubmenu">
-                        <li><a href="#">Wyszukaj</a></li>
                         <li>@Html.ActionLink("Ksiazki", "Index", "Books")</li>
                         @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker")))
                         {
@@ -50,7 +49,6 @@
                         {
                             <li>@Html.ActionLink("Dodaj nową", "Create", "Category")</li>
                         }
-                        <li><a href="#">Page 3</a></li>
                     </ul>
                 </li>
 
@@ -71,7 +69,7 @@
                 @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker")))
                 {
                     <li>
-                        <a href="#lendsSubmenu" data-toggle="collapse" aria-expanded="false">Wypożeczenia</a>
+                        <a href="#lendsSubmenu" data-toggle="collapse" aria-expanded="false">Wypożyczenia</a>
                         <ul class="collapse list-unstyled" id="lendsSubmenu">
                             <li> @Html.ActionLink("Wszystkie wypożyczenia", "Index", "Lend")</li>
                             <li> @Html.ActionLink("Do odebrania", "WaitingBooks", "Lend")</li>
@@ -112,23 +110,6 @@
                     </div>
                     <!-- Zmiana jezyka-->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            @if (Request.Cookies["Language"] != null)
-                            {
-                                if (Request.Cookies["Language"].Value == "pl")
-                                {
-                                    <li>@Html.ActionLink("Angielski", "Change", "Language", new { Language = "en" }, null)</li>
-                                }
-                                else
-                                {
-                                    <li>@Html.ActionLink("Polish", "Change", "Language", new { Language = "pl" }, null)</li>
-                                }
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink("Polish", "Change", "Language", new { Language = "pl" }, null)</li>
-                            }
-                        </ul>
                         <!-- Login PartialView-->
                         @Html.Partial("_LoginPartial")
                         <!-- Jakies podstrony-->

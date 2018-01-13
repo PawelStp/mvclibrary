@@ -18,6 +18,7 @@ namespace MVCLibrary.Models
         public User()
         {
             this.Lend = new HashSet<Lend>();
+            this.History = new HashSet<History>();
         }
     
         public int Id { get; set; }
@@ -32,5 +33,7 @@ namespace MVCLibrary.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lend> Lend { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<History> History { get; set; }
     }
 }

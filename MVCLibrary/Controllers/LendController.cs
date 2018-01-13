@@ -83,75 +83,40 @@ namespace MVCLibrary.Controllers
                 return Redirect(url);
             }
         }
-        // GET: Lend/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
-        // GET: Lend/Create
-        public ActionResult Create()
+        [Authorize]
+        public ActionResult UserLEnd()
         {
-            return View();
-        }
-
-        // POST: Lend/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            using (var dbContext = new MvclibraryEntities())
             {
-                // TODO: Add insert logic here
+                var userEmail = User.Identity.Name;
+                var user = dbContext.User.Where(u => u.Email == userEmail).FirstOrDefault();
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                var lends = dbContext.Lend.Where(l => l.UserId == user.Id ).ToList();
+
+                var lendServicew = new LendService();
+
+                var lendViewModel = lendServicew.GetViewModel(lends.OrderBy(o => o.DateBorrowed).ToList());
+
+                return View(lendViewModel);
             }
         }
 
-        // GET: Lend/Edit/5
-        public ActionResult Edit(int id)
+        [Authorize]
+        public ActionResult UserLEnd2()
         {
-            return View();
-        }
-
-        // POST: Lend/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            using (var dbContext = new MvclibraryEntities())
             {
-                // TODO: Add update logic here
+                var userEmail = User.Identity.Name;
+                var user = dbContext.User.Where(u => u.Email == userEmail).FirstOrDefault();
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                var lends = dbContext.Lend.Where(l => l.UserId == user.Id && l.State == "Na półce czytelnika").ToList();
 
-        // GET: Lend/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+                var lendServicew = new LendService();
 
-        // POST: Lend/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+                var lendViewModel = lendServicew.GetViewModel(lends.OrderBy(o => o.DateBorrowed).ToList());
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                return View("UserLend",lendViewModel);
             }
         }
     }

@@ -26,6 +26,14 @@
           <Property Name="RootCategoryId" Type="int" />
           <Property Name="IsRoot" Type="bit" />
         </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Word" Type="nvarchar" MaxLength="30" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Lend">
           <Key>
             <PropertyRef Name="Id" />
@@ -72,6 +80,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__History__UserID__5CD6CB2B">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fkfk1223">
           <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="Lend" Type="Self.Lend" Multiplicity="*" />
@@ -111,12 +131,17 @@
         <EntityContainer Name="MvclibraryModelStoreContainer">
           <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lend" EntityType="Self.Lend" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="message" EntityType="Self.message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk" Association="Self.fk">
             <End Role="category" EntitySet="category" />
             <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__History__UserID__5CD6CB2B" Association="Self.FK__History__UserID__5CD6CB2B">
+            <End Role="User" EntitySet="User" />
+            <End Role="History" EntitySet="History" />
           </AssociationSet>
           <AssociationSet Name="fkfk1223" Association="Self.fkfk1223">
             <End Role="User" EntitySet="User" />
@@ -157,6 +182,11 @@
             <End Role="Lend" EntitySet="Lend" />
           </AssociationSet>
           <EntitySet Name="message" EntityType="MvclibraryModel.message" />
+          <EntitySet Name="History" EntityType="MvclibraryModel.History" />
+          <AssociationSet Name="FK__History__UserID__5CD6CB2B" Association="MvclibraryModel.FK__History__UserID__5CD6CB2B">
+            <End Role="User" EntitySet="User" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Books">
           <Key>
@@ -211,6 +241,7 @@
           <Property Name="BorrowLimit" Type="Int32" />
           <Property Name="WaitLimit" Type="Int32" />
           <NavigationProperty Name="Lend" Relationship="MvclibraryModel.fkfk1223" FromRole="User" ToRole="Lend" />
+          <NavigationProperty Name="History" Relationship="MvclibraryModel.FK__History__UserID__5CD6CB2B" FromRole="User" ToRole="History" />
         </EntityType>
         <Association Name="fk">
           <End Type="MvclibraryModel.category" Role="category" Multiplicity="0..1" />
@@ -269,6 +300,27 @@
           <Property Name="Contnet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Word" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="MvclibraryModel.FK__History__UserID__5CD6CB2B" FromRole="History" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__History__UserID__5CD6CB2B">
+          <End Type="MvclibraryModel.User" Role="User" Multiplicity="1" />
+          <End Type="MvclibraryModel.History" Role="History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -331,6 +383,15 @@
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Contnet" ColumnName="Contnet" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="History">
+            <EntityTypeMapping TypeName="MvclibraryModel.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Word" ColumnName="Word" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

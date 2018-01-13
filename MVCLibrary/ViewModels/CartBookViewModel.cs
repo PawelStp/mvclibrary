@@ -10,7 +10,7 @@ namespace MVCLibrary.ViewModels
     {
         public Cart cart { get; set; }
         public List<BookViewModel> BookViewModels { get; set; }
-
+        public string SerchWord { get; set; }
         public CartBookViewModel()
         {
             BookViewModels = new List<BookViewModel>();
