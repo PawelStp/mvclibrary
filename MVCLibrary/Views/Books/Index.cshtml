@@ -4,6 +4,7 @@
     ViewBag.Title = "Books";
 }
 
+<h2>Ksiązki</h2>
 
 @if (TempData["Status"] != null)
 {
@@ -21,8 +22,6 @@
     }
 }
 
-
-
 <div class="table-responsive">
     @if (Model.cart != null)
     {
@@ -30,13 +29,12 @@
         {
             <table class="table">
                 <thead>
-
                     <tr>
                         <th>
-                            Title
+                            Tytuł
                         </th>
                         <th>
-                            Author
+                            Autor
                         </th>
                         <th>
                             ISBN
@@ -72,64 +70,64 @@
                     }
                 </tbody>
             </table>
-            @Html.ActionLink("Wypożycz ksiązki", "LendBooks","Books", null, new { @class = "btn btn-success" })
+            @Html.ActionLink("Wypożycz ksiązki", "LendBooks", "Books", null, new { @class = "btn btn-success" })
             @Html.ActionLink("Wyczyść koszyk", "ClearCart", "Books", null, new { @class = "btn btn-danger" })
         }
     }
 </div>
 <hr />
 
-    @using (Html.BeginForm("Search", "Books", new { @class = "form - inline" }, FormMethod.Post, new { encype = "multipart /form-data", runat = "server" }))
-    {
-        <input placeholder="Tytuł, Autor, ISBN" type="text" name="value" class="inputs-size-bigger edittext-width" />
+@using (Html.BeginForm("Search", "Books", new { @class = "form - inline" }, FormMethod.Post, new { encype = "multipart /form-data", runat = "server" }))
+{
+    <input placeholder="Tytuł, Autor, ISBN" type="text" name="value" class="inputs-size-bigger edittext-width" />
         <input type="submit" class="btn btn-success" style="margin: 10px;" value="Szukaj" />
-    }
-    @if (Model.SerchWord != null && Request.IsAuthenticated)
-    {
-        @Html.ActionLink("Zapisz historie wyszukiwania", "History", "Books", new { value = Model.SerchWord }, null)
-    }
-    <hr />
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Author
-                </th>
-                <th>
-                    ISBN
-                </th>
-                <th>
-                    Category
-                </th>
-                <th>
-                    Status
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.BookViewModels)
+}
+@if (Model.SerchWord != null && Request.IsAuthenticated)
+{
+    @Html.ActionLink("Zapisz historie wyszukiwania", "History", "Books", new { value = Model.SerchWord }, null)
+}
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tytuł
+            </th>
+            <th>
+                Autor
+            </th>
+            <th>
+                ISBN
+            </th>
+            <th>
+                Kategoria
+            </th>
+            <th>
+                Status
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BookViewModels)
             {
-                <tr class="form-group">
-                    @using (Html.BeginForm("Edit", "Books", FormMethod.Post))
-                    {
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title, new { @class = "form-control" })
-                        </td>
+            <tr class="form-group">
+                @using (Html.BeginForm("Edit", "Books", FormMethod.Post))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title, new { @class = "form-control" })
+                    </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Author, new { @class = "form-control" })
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ISBN, new { @class = "form-control" })
                         </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NameCategory, new { @class = "form-control" })
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.status, new { @class = "form-control" })
-                            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NameCategory, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.status, new { @class = "form-control" })
+                        </td>
                             <td>
                                 @if (Request.IsAuthenticated)
                                 {
@@ -139,9 +137,6 @@
 
                                     if (User.IsInRole("Admin") || User.IsInRole("Worker"))
                                     {
-                                        @*@Html.ActionLink("Edytuj", "Edit", "Books", null, new { @class = "btn btn-warning" } /* id=item.PrimaryKey */ );*@
-                                        @*@Html.ActionLink("Usuń", "Delete", "Books", null, new { @class = "btn btn-danger" } /* id=item.PrimaryKey */ );*@
-
                                         <a href="@Url.Action("Edit", "Books", new { id = item.Id })" class="btn btn-warning">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edytuj
                                         </a>
@@ -151,9 +146,9 @@
                                     }
                                 }
                             </td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
 </div>

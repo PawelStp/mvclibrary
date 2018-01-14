@@ -4,11 +4,8 @@
     ViewBag.Title = "User | Index";
 }
 
-<h2>Index</h2>
+<h2>Użytkownicy</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -45,7 +42,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @(item.IsUserVerified ? "Yes" : "No")
+                @(item.IsUserVerified ? "Tak" : "Nie")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BorrowLimit)

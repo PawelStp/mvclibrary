@@ -3,13 +3,13 @@
     ViewBag.Title = "Profile";
 }
 
-@Html.ActionLink("Zobacz historie wyszukiwań", "Index", "History", null, null)
+@Html.ActionLink("Zobacz historie wyszukiwań", "Index", "History", null, new { @class="btn btn-default" })
 <br />
 
-@Html.ActionLink("Zobacz ksiazki do odebrania", "UserLEnd2", "Lend", null, null)
+@Html.ActionLink("Zobacz ksiazki do odebrania", "UserLEnd2", "Lend", null, new { @class = "btn btn-default" })
 <br />
 
-@Html.ActionLink("Zobacz wypożyczenia", "UserLEnd", "Lend",null, null)
+@Html.ActionLink("Zobacz wypożyczenia", "UserLEnd", "Lend", null, new { @class = "btn btn-default" })
 
 
 
