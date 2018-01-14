@@ -1,7 +1,7 @@
 ﻿@model MVCLibrary.ViewModels.BookAddViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Books | Edit";
 }
 
 <h2>Edit</h2>
@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>BookAddViewModel</h4>
+        <h4>Edit existing book</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -58,5 +58,5 @@
 }
 
 <div>
-    @Html.ActionLink("< Back to List", "Index", new { }, new { @class = "action-link" })
+    @Html.ActionLink("< Back to List", "Index", null, new { @class = "action-link" })
 </div>

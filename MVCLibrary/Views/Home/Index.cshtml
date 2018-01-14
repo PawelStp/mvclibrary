@@ -4,60 +4,61 @@
     ViewBag.Title = "Index";
 }
 
-<h1>Nowości</h1>
+<div class="well bg-white">
+    <h1>Nowości</h1>
 
-<table class="table">
-    <tr>
-        <th>
-            Title
-        </th>
-        <th>
-            Author
-        </th>
-        <th>
-            Category
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.bookViewModel)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NameCategory)
-            </td>
+            <th>
+                Title
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Category
+            </th>
         </tr>
-    }
-</table>
 
-<h1>Wiadomosci od Admina</h1>
+        @foreach (var item in Model.bookViewModel)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameCategory)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="well bg-white">
+    <h1>Wiadomosci od Admina</h1>
 
-<table class="table">
-    <tr>
-        <th>
-            Title
-        </th>
-        <th>
-            Content
-        </th>
-    </tr>
-
-    @foreach (var item in Model.messages)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contnet)
-            </td>
-
+            <th>
+                Title
+            </th>
+            <th>
+                Content
+            </th>
         </tr>
-    }
-</table>
+
+        @foreach (var item in Model.messages)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contnet)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

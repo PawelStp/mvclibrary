@@ -1,16 +1,18 @@
 ﻿@model IEnumerable<MVCLibrary.ViewModels.CategoryViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Category";
 }
 
-<h2>Index</h2>
+<h2>Category</h2>
+
 @if (Request.IsAuthenticated)
 {
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
 }
+
 <table class="table">
     <tr>
         <th>
@@ -19,21 +21,30 @@
         <th>
             @Html.DisplayNameFor(model => model.RootName)
         </th>
-        <th></th>
+        @if (Request.IsAuthenticated)
+        {
+            <th></th>
+        }
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RootName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RootName)
+            </td>
+            @if (Request.IsAuthenticated)
+            {
+                <td>
+                    <a href="@Url.Action("Edit", "Category", new { id = item.Id })" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edytuj
+                    </a>
+                </td>
+            }
+        </tr>
+    }
 
 </table>
