@@ -287,7 +287,7 @@ namespace MVCLibrary.Controllers
 
                 var lends = dbContext.Lend.ToList();
 
-                var userLends = lends.Where(l => l.UserId == user.Id && (l.State == "Wypożyczona" || l.State == "Na półce czytelnika")).ToList();
+                var userLends = lends.Where(l => l.UserId == user.Id && (l.State == "Odebrano" || l.State == "Na półce czytelnika")).ToList();
 
                 if (userLends.Count + cart.books.Count <= user.BorrowLimit)
                 {
