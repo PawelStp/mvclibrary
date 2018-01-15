@@ -4,6 +4,8 @@
     ViewBag.Title = "Index";
 }
 
+<h2>Historia</h2>
+
 @if (TempData["Status"] != null)
 {
     if (TempData["Status"].ToString() == "false" && TempData["Message"] != null)
@@ -19,8 +21,6 @@
         </div>
     }
 }
-
-
 
 <div class="table-responsive">
     @if (Model.cart != null)
@@ -69,16 +69,16 @@
         <thead>
             <tr>
                 <th>
-                    Title
+                    Tytuł
                 </th>
                 <th>
-                    Author
+                    Autor
                 </th>
                 <th>
                     ISBN
                 </th>
                 <th>
-                    Category
+                    Kategoria
                 </th>
                 <th>
                     Status
@@ -121,3 +121,5 @@
         </tbody>
     </table>
 </div>
+
+@Html.ActionLink("< Wróć do profilu", "Profile", "User", null, new { @class = "action-link" })

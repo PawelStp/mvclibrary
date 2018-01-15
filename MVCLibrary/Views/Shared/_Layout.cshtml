@@ -34,7 +34,7 @@
                         <li>@Html.ActionLink("Ksiazki", "Index", "Books")</li>
                         @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Worker")))
                         {
-                            <li>@Html.ActionLink("Dodaj nowa", "Create", "Books")</li>
+                            <li>@Html.ActionLink("Dodaj nową", "Create", "Books")</li>
                         }
                     </ul>
                 </li>
@@ -112,8 +112,8 @@
                         @Html.Partial("_LoginPartial")
                         <!-- Jakies podstrony-->
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="@Url.Action("Index", "Books")">Books</a></li>
-                            <li><a href="@Url.Action("Index", "Category")">Category</a></li>
+                            <li><a href="@Url.Action("Index", "Books")">Książki</a></li>
+                            <li><a href="@Url.Action("Index", "Category")">Kategoria</a></li>
                             @*<li><a href="#">Page</a></li>*@
                             <!-- Wozek do wypozyczenia -->
                             @if (Request.IsAuthenticated)
@@ -121,7 +121,7 @@
                                 <li>
                                     @*@Html.ActionLink("Cart", "Index", "Books", null, new { @class = "libraryCart" })*@
                                     <a href="@Url.Action("Index", "Books")">
-                                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart
+                                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Koszyk
                                     </a>
                                 </li>
                             }

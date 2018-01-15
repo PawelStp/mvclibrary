@@ -10,6 +10,7 @@ namespace MVCLibrary.ViewModels
     {
         public int Id { get; set; }
 
+        [Display(Name = "Nazwa")]
         public string Name { get; set; }
 
         [Display(Name="Z rodziny")]
