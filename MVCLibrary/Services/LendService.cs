@@ -35,7 +35,7 @@ namespace MVCLibrary.Services
                             Surname = user.LastName,
                             Name = user.FirstName,
                             ISBN = book.ISBN,
-                            Title = book.Author,
+                            Title = book.Title,
                             Email = user.Email
 
                         }
